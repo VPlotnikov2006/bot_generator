@@ -1,6 +1,6 @@
 import json  # Сохранение списков
 import os  # Переход в другую директорию
-
+import graphviz  # Отрисовка графа
 
 def print_ireq(ireq):
     """Функция вывода требований по инвентарю"""
@@ -107,3 +107,21 @@ for _ in range(int(input('Введите количество изменений
 # Сохранение
 open('inventory_list.json', 'w').write(json.dumps(inv_list, indent=4, ensure_ascii=False))
 os.system(cls)
+
+os.environ["PATH"] += os.pathsep + 'C:\\Program Files\\Graphviz\\bin'
+print(os.system("dot -V"))
+
+adj_list = json.load(open('adjacency_list.json', 'r'))
+button_list = json.load(open('button.json', 'r'))
+text_list = json.load(open('text.json', 'r'))
+
+g = graphviz.Digraph('round-table', comment='The Round Table', format='png')
+
+for i, h in enumerate(adj_list):
+    for j in h:
+        if text_list[i] == '' or text_list[j] == '':
+            g.edge(f'No text for vertex №{i}', f'No text for vertex №{j}', label=button_list[i][j])
+        else:
+            g.edge(text_list[i], text_list[j], label=button_list[i][j])
+
+g.view()
