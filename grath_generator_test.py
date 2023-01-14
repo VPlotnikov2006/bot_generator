@@ -13,7 +13,7 @@ button_list = json.load(open('button.json', 'r'))
 text_list = json.load(open('text.json', 'r'))
 
 node = 18
-g = graphviz.Digraph('round-table', comment='The Round Table')
+g = graphviz.Digraph('round-table', comment='The Round Table', format='png')
 
 
 for i, h in enumerate(adjacency_list):
