@@ -62,7 +62,7 @@ for i, h in enumerate(adj_list):
                label=button_list[i][j] if button_list[i][j] else f'No text wor edge from {i} to {j}')
 
 print('Вы хотите увидеть получившийся граф?(Y/N)')
-if input() == 'Y':
+if input().upper() == 'Y':
     g.view()
 else:
     g.render()
