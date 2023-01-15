@@ -2,9 +2,16 @@ import os  # Переход в другую директорию + создан�
 import sys  # Завершение работы программы
 import shutil  # Копирование неизменяемых файлов пользователю
 import json  # Сохранение списков и словарей для корректной работы других генераторов
-import telebot  # Для подтверждения админки
 from string import ascii_letters  # Для генерации секретного кода
 from random import randint  # Для генерации секретного кода
+try:
+    import telebot  # Для подтверждения админки
+except ModuleNotFoundError as e:
+    print('Модуль pyTelegramBotAPI не установлен')
+    print('Команда для установки: ')
+    print('pip install pyTelegramBotAPI')
+    input()
+    sys.exit(1)
 
 sep = '\\' if os.name == 'nt' else '/'
 
@@ -43,16 +50,29 @@ bot.polling()
 
 # Создание всех файлов
 # config.py
-cfg = ''.join(open(f'TelegramBotGeneratorData{sep}config.py').readlines()).format(
-    node=n, inventory_size=i, BotKey=BotKey, AdminId=AdminID)
+try:
+    cfg = ''.join(open(f'TelegramBotGeneratorData{sep}config.py').readlines()).format(
+        node=n, inventory_size=i, BotKey=BotKey, AdminId=AdminID)
+except FileNotFoundError as e:
+    print(e)
+    print('Проверьте целостность файлов генераторов')
+    input()
+    sys.exit(1)
 
 # Переходиим в папку бота
 d = os.getcwd()
-os.chdir(s)
+try:
+    os.chdir(s)
+except FileNotFoundError:
+    print('Указанной папки не существует')
+    input()
+    sys.exit(1)
+
 if len(os.listdir(path='.')):
     print('В папке назначения есть файлы')
     print('Создание бота в этой папке может их уничтожить')
     print('Или эти файлы могут помешать работе бота')
+    input()
     sys.exit(1)
 os.mkdir('TelegramBotData')
 os.mkdir('TelegramBotData/logs')
@@ -62,9 +82,15 @@ os.mkdir('TelegramBotData/save')
 os.mkdir('TelegramBotData/graph')
 
 # Копируем неизменяемые файлы
-shutil.copy(d + f'{sep}TelegramBotGeneratorData{sep}inventory.py', f'TelegramBotData{sep}lib{sep}inventory.py')
-shutil.copy(d + f'{sep}TelegramBotGeneratorData{sep}__init__.py', f'TelegramBotData{sep}lib{sep}__init__.py')
-shutil.copy(d + f'{sep}TelegramBotGeneratorData{sep}pattern.py', 'bot.py')
+try:
+    shutil.copy(d + f'{sep}TelegramBotGeneratorData{sep}inventory.py', f'TelegramBotData{sep}lib{sep}inventory.py')
+    shutil.copy(d + f'{sep}TelegramBotGeneratorData{sep}__init__.py', f'TelegramBotData{sep}lib{sep}__init__.py')
+    shutil.copy(d + f'{sep}TelegramBotGeneratorData{sep}pattern.py', 'bot.py')
+except FileNotFoundError as e:
+    print(e)
+    print('Проверьте целостность файлов генераторов')
+    input()
+    sys.exit(1)
 
 open(f'TelegramBotData{sep}lib{sep}config.py', 'w').write(cfg)  # Сохранение конфига
 open(f'TelegramBotData{sep}save{sep}save.json', 'w').write(json.dumps({}, indent=4, ensure_ascii=False))
