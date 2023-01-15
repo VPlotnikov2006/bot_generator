@@ -11,7 +11,8 @@ def print_adj_list(lst):
 
 # Переход в папку бота
 sep = '\\' if os.name == 'nt' else '/'
-s = input('Введите адрес папки для бота:\n') + f'{sep}TelegramBotData{sep}static'
+file = input('Введите адрес папки для бота:\n')
+s = file + f'{sep}TelegramBotData{sep}static'
 os.chdir(s)
 
 # Считывание списка смежности
@@ -39,19 +40,31 @@ for _ in range(int(input('Введите количество ребер в гр
 # Сохранение изменений
 open('adjacency_list.json', 'w').write(json.dumps(adj_list, indent=4, ensure_ascii=False))
 
-os.environ["PATH"] += os.pathsep + 'C:\\Program Files\\Graphviz\\bin'
-print(os.system("dot -V"))
+# Указание путя для отрисовки графов
+os.environ["PATH"] += os.pathsep + 'C:\\Program Files\\Graphviz\\bin' #
 
 button_list = json.load(open('button.json', 'r'))
 text_list = json.load(open('text.json', 'r'))
 
-g = graphviz.Digraph('round-table', comment='The Round Table', format='png')
+# Указание, куда сохранять картинку
+s = file + f'{sep}TelegramBotData{sep}graph'
+os.chdir(s)
+
+# Создание графа
+g = graphviz.Digraph('Graph for bot', comment='Your graph', format='png')
+
+for i in range(len(adj_list)):
+    g.node(f'{i}', text_list[i] if text_list[i] else f'No text for vertex №{i}')
 
 for i, h in enumerate(adj_list):
     for j in h:
-        if text_list[i] == '' or text_list[j] == '':
-            g.edge(f'No text for vertex №{i}', f'No text for vertex №{j}', label=button_list[i][j])
-        else:
-            g.edge(text_list[i], text_list[j], label=button_list[i][j])
+        g.edge(f'{i}', f'{j}',
+               label=button_list[i][j] if button_list[i][j] else f'No text wor edge from {i} to {j}')
 
-g.view()
+print('Вы хотите увидеть получившийся граф?(Y/N)')
+if input() == 'Y':
+    g.view()
+else:
+    g.render()
+
+print(f'Граф сохранён по адресу {file}{sep}TelegramBotData{sep}graph')
