@@ -1,6 +1,6 @@
 import json  # Сохранение списков
 import os  # Переход в другую директорию
-
+import graphviz  # Отрисовка графа
 
 def print_buttons(buttons):
     """Функция вывода текстов для кнопок"""
@@ -13,7 +13,8 @@ def print_buttons(buttons):
 
 # Переход в папку бота
 sep = '\\' if os.name == 'nt' else '/'
-s = input('Введите адрес папки для бота:\n') + f'{sep}TelegramBotData{sep}static'
+file = input('Введите адрес папки для бота:\n')
+s = file + f'{sep}TelegramBotData{sep}static'
 os.chdir(s)
 
 # Считывание текстов кнопок
@@ -38,3 +39,33 @@ for _ in range(int(input('Введите количество текстов д�
 
 # Сохранение текстов
 open('button.json', 'w').write(json.dumps(button, indent=4, ensure_ascii=False))
+
+# Указание путя для отрисовки графов
+os.environ["PATH"] += os.pathsep + 'C:\\Program Files\\Graphviz\\bin' #
+
+adj_list = json.load(open('adjacency_list.json', 'r'))
+button_list = json.load(open('button.json', 'r'))
+text_list = json.load(open('text.json', 'r'))
+
+# Указание, куда сохранять картинку
+s = file + f'{sep}TelegramBotData{sep}graph'
+os.chdir(s)
+
+# Создание графа
+g = graphviz.Digraph('Graph for bot', comment='Your graph', format='png')
+
+for i in range(len(adj_list)):
+    g.node(f'{i}', text_list[i] if text_list[i] else f'No text for vertex №{i}')
+
+for i, h in enumerate(adj_list):
+    for j in h:
+        g.edge(f'{i}', f'{j}',
+               label=button_list[i][j] if button_list[i][j] else f'No text wor edge from {i} to {j}')
+
+print('Вы хотите увидеть получившийся граф?(Y/N)')
+if input() == 'Y':
+    g.view()
+else:
+    g.render()
+
+print(f'Граф сохранён по адресу {file}{sep}TelegramBotData{sep}graph')

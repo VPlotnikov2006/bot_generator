@@ -59,6 +59,7 @@ os.mkdir('TelegramBotData/logs')
 os.mkdir('TelegramBotData/static')
 os.mkdir('TelegramBotData/lib')
 os.mkdir('TelegramBotData/save')
+os.mkdir('TelegramBotData/graph')
 
 # Копируем неизменяемые файлы
 shutil.copy(d + f'{sep}TelegramBotGeneratorData{sep}inventory.py', f'TelegramBotData{sep}lib{sep}inventory.py')
