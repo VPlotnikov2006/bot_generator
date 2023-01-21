@@ -542,4 +542,4 @@ ___
 </details>
 
 ___
-![Alt-текст](/TelegramBotGeneratorData/projectgraf.png "Пример графа")
+![Alt-текст](/TelegramBotGeneratorData/project_graf.png "Пример графа")
