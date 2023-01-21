@@ -61,8 +61,8 @@ for i in range(len(adj_list)):
     l = 0
     for j in range(len(text_split)):
         if l <= 20:
-            text += text_split[j]
-            l += len(text_split[j])
+            text += text_split[j] + " "
+            l += len(text_split[j]) + 1
         else:
             text += '\n'
             text += text_split[j]
