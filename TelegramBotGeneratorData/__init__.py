@@ -1,2 +1,2 @@
-import TelegramBotData.inventory
-import TelegramBotData.config
+import TelegramBotData.lib.inventory
+import TelegramBotData.lib.config

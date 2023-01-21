@@ -22,7 +22,12 @@ def print_adj_list(lst):
 sep = '\\' if os.name == 'nt' else '/'
 file = input('Введите адрес папки для бота:\n')
 s = file + f'{sep}TelegramBotData{sep}static'
-os.chdir(s)
+try:
+    os.chdir(s)
+except FileNotFoundError:
+    print('Указанной папки не существует')
+    input()
+    sys.exit(1)
 
 # Считывание списка смежности
 try:
@@ -84,7 +89,7 @@ except FileNotFoundError:
 try:
     text_list = json.load(open('text.json', 'r'))
 except FileNotFoundError:
-    print('В файлах бота отсутствует TelegramBotData/static/button.json')
+    print('В файлах бота отсутствует TelegramBotData/static/text.json')
     print('Вы можете создать его сами')
     print('В этот файл нужно записать такую строку: ')
     print('["", "", ... столько раз, сколько вершин в графе]')
