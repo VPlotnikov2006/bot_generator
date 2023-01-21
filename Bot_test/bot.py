@@ -4,7 +4,7 @@ from telebot import types  # Для настройки кнопок
 from json import load, dumps  # Для считывания и записи словарей и списков
 from TelegramBotData.lib import *  # Инвентарь и конфиг бота
 
-config.BotKey = input("Введите токен бота, в котором вы хотите опробовать тестовый квест: \n")
+config.BotKey = input('Введите токен бота, в котором вы хотите опробовать тестовый квест: \n')
 bot = telebot.TeleBot(config.BotKey)  # Создание объекта бота
 
 # Настройка параметров инвентаря
@@ -53,6 +53,7 @@ def save_wrapper(func):
 
     return wrapper
 
+print('Бот запущен')
 
 @bot.message_handler(commands=['start'])
 @save_wrapper
