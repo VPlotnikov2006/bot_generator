@@ -1,9 +1,11 @@
 ## Эти программы помогут вам создать своего простого бота для telegram.
-Перед началом работы убедитесь что у вас установлен python с библиотеками graphviz и pyTelegramBotAPI
+Перед началом работы убедитесь что у вас установлен python с библиотеками graphviz и pyTelegramBotAPI 
+и скачан сам [Graphviz](https://graphviz.org/download/)
 ```
 pip install graphviz
 pip install pyTelegramBotAPI
 ```
+
 ## Оглавление
 0. [Создание своего бота](#создание-своего-бота)
 1. [Создание файлов бота](#создание-файлов-бота)
