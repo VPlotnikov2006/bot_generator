@@ -20,7 +20,6 @@ def print_buttons(buttons):
 
 
 # Переход в папку бота
-cls = 'cls' if os.name == 'nt' else 'clear'
 sep = '\\' if os.name == 'nt' else '/'
 file = input('Введите адрес папки для бота:\n')
 s = file + f'{sep}TelegramBotData{sep}static'
@@ -100,8 +99,6 @@ try:
 
         if not text:
             text = f'No text for vertex №{i}'
-        else:
-            pass
         g.node(f'{i}', text)
 
     for i, h in enumerate(adj_list):
