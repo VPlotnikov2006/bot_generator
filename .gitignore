@@ -1,3 +1,4 @@
 /.idea/
 *.log
 *.zip
+/Bot_test/TelegramBotData/lib/__pycache__/

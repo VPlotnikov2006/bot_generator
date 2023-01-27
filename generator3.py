@@ -115,7 +115,12 @@ except FileNotFoundError:
     sys.exit(1)
 # Указание, куда сохранять картинку
 s = file + f'{sep}TelegramBotData{sep}graph'
-os.chdir(s)
+try:
+    os.chdir(s)
+except FileNotFoundError:
+    print('Указанной папки не существует')
+    input()
+    sys.exit(1)
 
 # Создание графа
 try:
@@ -128,11 +133,11 @@ try:
         l = 0
         for j in range(len(text_split)):
             if l <= 20:
-                text += text_split[j]
-                l += len(text_split[j])
+                text += text_split[j] + " "
+                l += len(text_split[j]) + 1
             else:
                 text += '\n'
-                text += text_split[j]
+                text += text_split[j] + " "
                 l = 0
                 l += len(text_split[j])
 
