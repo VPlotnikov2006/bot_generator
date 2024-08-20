@@ -48,31 +48,29 @@ for (let i in e) {
     let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     let defs = document.createElementNS(svg.namespaceURI, "defs");
     let marker = document.createElementNS(defs.namespaceURI, "marker");
-    let path = document.createElementNS(marker.namespaceURI, "path");
+    let polygon = document.createElementNS(marker.namespaceURI, "polygon");
     svg.style.position = "absolute";
     svg.style.left = "0px";
     svg.style.top = "0px";
     svg.setAttribute("width", "500");
     svg.setAttribute("height", "500");
+    svg.setAttribute("viewBox", "0 0 500 500");
 
     marker.setAttribute("id", "arrow");
-    marker.setAttribute("viewBox", "0 -5 20 20");
-    marker.setAttribute("refX", "13");
-    marker.setAttribute("refY", "0");
-    marker.setAttribute("markerWidth", "16");
+    marker.setAttribute("refX", "7");
+    marker.setAttribute("refY", "3.5");
+    marker.setAttribute("markerWidth", "10");
+    marker.setAttribute("markerWidth", "7");
     marker.setAttribute("orient", "auto");
     
-    path.setAttribute("fill", "teal");
-    path.setAttribute("stroke", "teal");
-    path.setAttribute("d", "M0,-5L20,0L0,5");
+    polygon.setAttribute("points", "0 0, 10 3.5, 0 7");
     
-    marker.appendChild(path);
+    marker.appendChild(polygon);
     defs.appendChild(marker);
 
     let line = document.createElementNS(svg.namespaceURI, "line");
     line.setAttribute("stroke", "teal");
-    line.setAttribute("stroke", "teal");
-    line.setAttribute("stroke-width", "4");
+    line.setAttribute("stroke-width", "8");
     line.setAttribute("marker-end", "url(#arrow)");
 
     const [x1, y1] = getCenter(e[i][0]);
