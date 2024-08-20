@@ -1,0 +1,14 @@
+.node {
+    text-align: center;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    mask-image: url('node.svg');
+    border-radius: 50%;
+}
+
+.line {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+}
