@@ -8,7 +8,13 @@
 </head>
 <body>
     <div id="graph-window">
-        <div id="line-container"></div>
+        <svg id="line-container" width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrow" viewBox="0 -5 20 20" refX="13" refY="0" markerWidth="16" markerHeight="100000" orient="auto">
+                    <path fill="teal" stroke="teal" d="M0,-5L20,0L0,5"></path>
+                </marker>
+            </defs>
+        </svg>
         <div id="node-container"></div>
     </div>
     <script src="main.js"></script>
