@@ -21,6 +21,10 @@ const getCenter = (i) => {
     return [x, y];
 }
 
+const dist = (x1, y1, x2, y2) => {
+    return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+}
+
 const addNode = (i, color) => {
     const node = document.createElement("div");
     node.className = "node";
@@ -53,8 +57,8 @@ const addNode = (i, color) => {
             updateLines();
             node.onmouseup = null;
         }
-
     } 
+
     nodeContainer.appendChild(node);
 
     node.style.top = Math.random() * (graphWindow.getClientRects()[0].height - node.offsetHeight) + "px";
@@ -64,9 +68,8 @@ const addNode = (i, color) => {
 
 const addLine = (i, j) => {
     let line = document.createElementNS(lineContainer.namespaceURI, "line");
-    line.setAttribute("stroke", "teal");
+    line.setAttribute("stroke", "black");
     line.setAttribute("stroke-width", "4");
-    line.setAttribute("marker-end", "url(#arrow)")
     line.id = "line-" + i + "-" + j;
     lineContainer.appendChild(line);
 }
@@ -77,6 +80,10 @@ const updateLines = () => {
         const [x1, y1] = getCenter(s);
         const [x2, y2] = getCenter(f);
         let line = document.getElementById("line-" + s + "-" + f);
+        if (dist(x1, y1, x2, y2) < 30)
+            line.removeAttribute("marker-end");
+        else
+            line.setAttribute("marker-end", "url(#arrow)");
         line.setAttribute("x1", x1);
         line.setAttribute("y1", y1);
         line.setAttribute("x2", x2);
