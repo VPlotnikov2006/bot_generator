@@ -1,8 +1,8 @@
 const n = 3;
 
-const nodeContainer = document.getElementById("node-container");
-const lineContainer = document.getElementById("line-container");
-const graphWindow = document.getElementById("graph-window");
+let nodeContainer = document.getElementById("node-container");
+let lineContainer = document.getElementById("line-container");
+let graphWindow = document.getElementById("graph-window");
 
 const e = [
     [0, 2],
@@ -11,8 +11,6 @@ const e = [
     // [2, 3],
     // [5, 6]
 ];
-
-const clamp = (mn, val, mx) => {return Math.max(mn, Math.min(mx, val));}
 
 const getCenter = (i) => {
     const p = document.getElementById("node" + i);
@@ -33,12 +31,12 @@ const addNode = (i, color) => {
     node.ondragstart = () => {return false;};
     node.onmousedown = (e) => {
         function move(e) {
-            node.style.left = clamp(
+            node.style.left = Math.clamp(
                 0,
                 e.pageX - graphWindow.getClientRects()[0].left - node.offsetWidth / 2,
                 graphWindow.getClientRects()[0].width - node.offsetWidth
             ) + "px";
-            node.style.top = clamp(
+            node.style.top = Math.clamp(
                 0,
                 e.pageY -graphWindow.getClientRects()[0].top- node.offsetHeight / 2,
                 graphWindow.getClientRects()[0].height - node.offsetHeight
@@ -75,8 +73,8 @@ const addLine = (i, j) => {
 }
 
 const updateLines = () => {
-    for (let i in e) {
-        const [s, f] = e[i];
+    for (let i of e) {
+        const [s, f] = i;
         const [x1, y1] = getCenter(s);
         const [x2, y2] = getCenter(f);
         let line = document.getElementById("line-" + s + "-" + f);
@@ -95,8 +93,8 @@ for (let i = 0; i < n; i++) {
     addNode(i, ["red", "blue", "green"][i]);
 }
 
-for (let i in e) {
-    addLine(...e[i]);
+for (let i of e) {
+    addLine(...i);
 }
 
 updateLines();
