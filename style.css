@@ -1,10 +1,10 @@
 #graph-window {
     position: relative;
-    top: 100px;
-    left: 100px;
-    width: 500px;
-    height: 500px;
-    border: solid black 1px;
+    top: 50px;
+    left: 50px;
+    width: 400px;
+    height: 400px;
+    border: solid black 2px;
 }
 .node {
     text-align: center;
@@ -12,5 +12,6 @@
     width: 24px;
     height: 24px;
     mask-image: url('node.svg');
+    background-repeat: no-repeat;
     border-radius: 50%;
 }
