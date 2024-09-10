@@ -9,8 +9,9 @@ let graphWindow = document.querySelector("#graph-window");
 
 const getCenter = (i) => {
     const p = document.querySelector("#node" + i);
-    const x = p.getClientRects()[0].left - graphWindow.getClientRects()[0].left + p.offsetWidth / 2;
-    const y = p.getClientRects()[0].top - graphWindow.getClientRects()[0].top + p.offsetHeight / 2;
+    const x = parseInt(p.style.left) + p.clientWidth / 2;
+    const y = parseInt(p.style.top) + p.clientHeight / 2;
+    console.log(i, p.getClientRects()[0], p.getClientRects()[0].x - graphWindow.getClientRects()[0].x);
     return [x, y];
 }
 

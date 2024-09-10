@@ -1,14 +1,14 @@
- <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
   <circle 
-    cx="12" 
-    cy="12" 
-    r="10"
+    cx="10" 
+    cy="10" 
+    r="9"
     fill-opacity="0"
     style="fill: white; stroke: white; stroke-width: 2;" />
     
   <circle 
-    cx="12" 
-    cy="12" 
-    r="7"
+    cx="10" 
+    cy="10" 
+    r="5"
     style="fill: white;" />
 </svg>
