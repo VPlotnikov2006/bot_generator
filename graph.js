@@ -11,7 +11,6 @@ const getCenter = (i) => {
     const p = document.querySelector("#node" + i);
     const x = parseInt(p.style.left) + p.clientWidth / 2;
     const y = parseInt(p.style.top) + p.clientHeight / 2;
-    console.log(i, p.getClientRects()[0], p.getClientRects()[0].x - graphWindow.getClientRects()[0].x);
     return [x, y];
 }
 
