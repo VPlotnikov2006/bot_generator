@@ -1,19 +1,29 @@
 graphList = {
-    n: 0,
     nodeList: document.querySelector("#node-list ul"),
-    addNode: () => {
-        let l = document.createElement("li");
-        l.id = "node_list" + graphList.n++;
-        l.innerHTML = "Узел" + graphList.n;
-        graphList.nodeList.appendChild(l);
+    nodesId: [],
+    idCounter: -1,
+    updateId: () => {
+        let i = 0;
+        for (let l of graphList.nodeList.querySelectorAll("li"))
+            l.id = "node_list" + i++;
     },
-    deleteNode: (i) => {
-        let l = document.querySelector("#node-list ul #node_list" + i);
-        if (l == null)
-            return;
-        for (let cur = l.nextElementSibling; cur; cur = cur.nextElementSibling, i++) 
-            cur.id = "node_list" + i;
-        graphList.n--;
-        l.remove();
-    }
+    addNode: (color, x, y) => {
+        graph.addNode(color, x, y, ++graphList.idCounter);
+        graphList.nodesId.push(graphList.idCounter);
+        let l = document.createElement("li");
+        let n = document.createElement("div");
+        n.className = "node"
+        n.style.backgroundColor = color;
+        l.appendChild(n);
+        graphList.nodeList.appendChild(l);
+        graphList.updateId();
+    },
+    deleteNode: (k) => {
+        let l = document.querySelector("#node-list ul #node_list" + nodesId[k]);
+        graphList.nodesId.splice(k, 1);
+        if (l)
+            l.remove();
+        graphList.updateId();
+    },
+    
 }

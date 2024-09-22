@@ -1,5 +1,4 @@
 graph = {
-    n: 0,
     e: [],
 
     nodeContainer: document.querySelector("#node-container"),
@@ -14,11 +13,12 @@ graph = {
     },
 
 
-    addNode: (color, x, y) => {
+    addNode: (color, x, y, i) => {
         const node = document.createElement("div");
         node.className = "node";
         node.style.backgroundColor = color;
-        node.id = "node" + (graph.n++);
+        node.style.position = "absolute";
+        node.id = "node" + i;
         node.ondragstart = () => {return false;};
         node.onmousedown = (e) => {
             function move(e) {
